@@ -18,6 +18,7 @@ r-getopt \
 bioconductor-tsrchitect \
 bioconductor-genomicranges \
 bioconductor-genomicfeatures \
+bioconductor-rtracklayer \
 bioconductor-chipseeker
 
 ## Update rnaseq-automation environment
@@ -25,6 +26,14 @@ conda update -n stripe-saturation -y -c conda-forge -c bioconda --all
 
 ## Clean up extra files
 conda clean -y --all
+
+## Add stripe-saturation software to path
+
+export PATH=/opt/conda/envs/stripe-saturation/bin:$PATH
+
+## Install latest build of TSRchitect
+
+R --slave -e 'devtools::install_github("BrendelGroup/TSRchitect",ref="master")'
 
 %environment
 
