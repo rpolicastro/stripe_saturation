@@ -33,7 +33,7 @@ export PATH=/opt/conda/envs/stripe-saturation/bin:$PATH
 
 ## Install latest build of TSRchitect
 
-R --slave -e 'devtools::install_github("BrendelGroup/TSRchitect",ref="master")'
+R --slave -e 'Sys.setenv(TAR = "/bin/tar");devtools::install_github("BrendelGroup/TSRchitect",ref="master")'
 
 %environment
 
