@@ -164,8 +164,8 @@ plotting.data <- TSS.saturation %>%
 ## Plot data.
 
 p <- ggplot(plotting.data, aes(x=sample_value, y=n.genes)) +
-	geom_point(aes(size=promoter.proximal.frac, color=promoter.proximal.frac)) +
 	geom_line() +
+	geom_point(aes(size=promoter.proximal.frac, color=promoter.proximal.frac)) +
 	scale_color_viridis_c() +
 	theme_bw() +
 	labs(
