@@ -13,6 +13,8 @@ conda update -n base -y -c defaults conda
 conda create -n stripe-saturation -y -c conda-forge -c bioconda \
 samtools \
 r-tidyverse \
+r-devtools \
+r-getopt \
 bioconductor-tsrchitect \
 bioconductor-genomicranges \
 bioconductor-genomicfeatures \
