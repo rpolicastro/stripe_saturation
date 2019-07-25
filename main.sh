@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#######################
+## Saturation Analysis
+#######################
+
+## Loading Settings
+## ----------
+
+source settings.conf
+
 ## Downsampling BAMs
 ## ----------
 
@@ -9,8 +18,8 @@ READS=$(samtools flagstat $BAM | awk 'NR==1' | cut -d" " -f1)
 
 ## Divide number by 2 if paired.
 
-if [ $PAIRED = TRUE ]; then
-        READS=$(Rscript --slave -e 'cat(${READS}/2)')
+if [ $PAIRED == 'TRUE' ]; then
+        READS=$(R --slave -e "cat(${READS}/2)")
 fi
 
 ## Get sampling percentages.
@@ -19,7 +28,7 @@ SAMPLES=($(seq $FROM $BY $TO))
 
 SAMPLE_FRACS=()
 for SAMPLE in ${SAMPLES[@]}; do
-        SAMPLE_FRACS+=($(R --slave -e 'cat(${SAMPLE}/${READS})'))
+        SAMPLE_FRACS+=($(R --slave -e "cat(${SAMPLE}/${READS})"))
 done
 
 ## Sample BAMs and remove PCR duplicates.
@@ -27,7 +36,7 @@ done
 mkdir -p ${OUTDIR}/sampled_bams
 
 N_SAMPLES=${#SAMPLE_FRACS[@]}
-for N in $(seq 0 1 $(bc <<< $N_SAMPLES-1)); do
+for N in $(seq 0 1 $(R --slave -e "cat(${N_SAMPLES}-1)")); do
         samtools view -bs 0${SAMPLE_FRACS[$N]} $BAM | \
         samtools sort -n -@ $CORES - | \
         samtools fixmate -m - - | \
@@ -41,7 +50,7 @@ done
 ## Saturation Analysis
 ## ----------
 
-Rscript R/stripe-saturation.R \
+Rscript ./R/stripe_saturation.R \
 --outdir $OUTDIR \
 --paired $PAIRED \
 --cores $CORES \

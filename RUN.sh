@@ -20,7 +20,7 @@ mkdir -p ${OUTDIR}/container
 
 ## Download container if it doesn't exist.
 
-CONTAINER_NAME=$(basename $CONTAINER | tr ":" "_").sif
+CONTAINER_NAME=$(basename $CONTAINER | tr ":" "_")'.sif'
 
 if [ ! -f ${OUTDIR}/container/$CONTAINER_NAME ]; then
 	singularity pull -U $CONTAINER
@@ -30,15 +30,16 @@ fi
 ## Run Workflow
 ## ----------
 
-SINGULARITYENV_OUTDIR=$OUTDIR
-SINGUALRITYENV_CORES=$CORES
-SINGUALRITYENV_PAIRED=$PAIRED
-SINGUALRITYENV_GTF=$GTF
-SINGUALRITYENV_FROM=$FROM
-SINGUALRITYENV_TO=$TO
-SINGUALRITYENV_BY=$BY
-
+#SINGUALRITYENV_BAM=$BAM \
+#SINGULARITYENV_OUTDIR=$OUTDIR \
+#SINGUALRITYENV_CORES=$CORES \
+#SINGUALRITYENV_PAIRED=$PAIRED \
+#SINGUALRITYENV_GTF=$GTF \
+#SINGUALRITYENV_FROM=$FROM \
+#SINGUALRITYENV_TO=$TO \
+#SINGUALRITYENV_BY=$BY \
 singularity exec \
--eCB $PWD,$OUTDIR,$(dirname ${GTF}) \
--H $PWD \
-main.sh
+-eCB ${PWD},${OUTDIR},$(dirname ${GTF}),$(dirname ${BAM}) \
+-H ${PWD} \
+${OUTDIR}/container/$CONTAINER_NAME \
+bash main.sh

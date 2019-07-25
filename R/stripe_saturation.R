@@ -73,7 +73,7 @@ tss.obj <- inputToTSS(tss.obj)
 
 tss.obj <- processTSS(
 	tss.obj,
-	n.cores=opt$cores,
+	n.cores=as.numeric(opt$cores),
 	tssSet="all",
 	writeTable=FALSE
 )
