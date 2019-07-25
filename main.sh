@@ -19,3 +19,5 @@ READS=$(samtools flagstat $BAM | awk 'NR==1' | cut -d" " -f1)
 ## Divide number by 2 if paired.
 
 [[ $PAIRED = TRUE ]] && READS=$(python -c "print $READS/2")
+
+
