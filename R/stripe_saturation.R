@@ -154,9 +154,14 @@ plotting.data <- TSS.saturation %>%
 p <- ggplot(plotting.data, aes(x=sample_value, y=n.genes)) +
 	geom_point(aes(size=promoter.proximal.frac, color=promoter.proximal.frac)) +
 	geom_line() +
-	scale_color_viridis_c()
+	scale_color_viridis_c() +
+	theme_bw() +
+	labs(
+		x="Number of Sampled Reads",
+		y="Genes with Promoter Proximal TSS"
+	)
 
 ggsave(
 	file.path(opt$outdir, "saturation_analysis_plots", "saturation_plot.pdf"),
-	plot=p, device="pdf", height=5, width=7
+	plot=p, device="pdf", height=4, width=7
 )
