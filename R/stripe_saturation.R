@@ -11,6 +11,18 @@ library("TSRchitect")
 ## Saturation Analysis of STRIPE-seq Data
 ##########################################
 
+## Load Settings
+## ----------
+
+options <- matrix(c(
+	"outdir", "o", 1, "character", "output directory",
+	"cores", "c", 1, "character", "number of cores",
+	"gtf", "g", 1, "character", "gtf annotation file",
+	"paired", "p", 1, "character", "whether the bams are paired or not"
+), byrow=TRUE, ncol=5)
+
+opt <- getopt(options)
+
 ## Make Sample Sheet
 ## ----------
 
