@@ -1,0 +1,31 @@
+bootstrap: docker
+From: continuumio/miniconda3
+
+%post
+
+## Add conda to path
+export PATH=$PATH:/opt/conda/bin
+
+## Update conda
+conda update -n base -y -c defaults conda
+
+## Install sequence color map analysis software
+conda create -n stripe-saturation -y -c conda-forge -c bioconda \
+samtools \
+r-tidyverse \
+bioconductor-tsrchitect \
+bioconductor-genomicranges \
+bioconductor-genomicfeatures \
+bioconductor-chipseeker
+
+## Update rnaseq-automation environment
+conda update -n stripe-saturation -y -c conda-forge -c bioconda --all
+
+## Clean up extra files
+conda clean -y --all
+
+%environment
+
+## Add software to environment
+
+export PATH=/opt/conda/envs/stripe-saturation/bin:$PATH
