@@ -1,6 +1,11 @@
 # STRIPE-seq Sequencing Saturation.
 
+v1.0.0
+
 This repository leverages the convenience of singularity containers to allow the sequencing saturation analysis of STRIPE-seq data.
+First, the provided BAM file derived from STRIPE-seq is downsampled in user defined increments.
+Then for each downsampled BAM, the number of genes detected with promoter proximal TSSs is reported, along with the total fraction of unique TSSs that are promoter proximal. 
+Finally, the results are plotted for easy visualization.
 
 ![Example Saturation Plot](./docs/saturation_plot_example.png)
 
